@@ -9,7 +9,7 @@ const reducers = combineReducers({
   bars,
   loginscreen,
   form: reducer,
-  auth: authReducer
+  auth: authReducer,
  });
 
 export default reducers;

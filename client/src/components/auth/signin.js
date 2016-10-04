@@ -19,7 +19,7 @@ class SignIn extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+
     const { fields: {email, password}, handleSubmit, submitting } = this.props;
     return (
       <form className="ui form error" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>

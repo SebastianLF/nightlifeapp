@@ -1,4 +1,4 @@
-import { SHOW_LOGINSCREEN, CLOSE_LOGINSCREEN } from '../actions';
+import { SHOW_LOGINSCREEN, CLOSE_LOGINSCREEN } from '../actions/types';
 
 export default function loginscreen(state = { active: false }, action) {
   switch (action.type) {

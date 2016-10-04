@@ -8,14 +8,15 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [{
-      exclude: /node_modules/,
-      loader: 'babel'
-    }]
+    loaders: [
+      { test:/\.js$/, loader: 'babel', exclude: /node_modules/ },
+      { test:/\.png$/, loader: 'url', exclude: /node_modules/ }
+    ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.css', '.png']
   },
+  devtool: "#eval-source-map",
   devServer: {
     historyApiFallback: true,
     contentBase: './'

@@ -1,48 +1,54 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectBar } from '../actions/bars';
+
+import { setSelectedBar } from '../actions';
 import Bar from '../components/bar';
+import PaginationList from './pagination-list';
 
-const BarList = ({ items, error, onSelect, selectedItem, isFetching }) => {
+const BarList = ({ items, total, error, onSelect, selectedItem, isFetching }) => {
 
-  const list = !error.status ?
-  <div>
-    {
-      items.businesses.map(bar => {
-        const isSelected = (bar.id === selectedItem.id);
-        return (
-          <Bar
-            key={bar.id}
-            isSelected={isSelected}
-            onSelect={onSelect}
-            selectedItem={selectedItem}
-            {...bar} />
-        );
-      })
+  const list = () => {
+    const paginationLength = total / 10;
+    if (items) {
+      return [
+        items.map(bar => {
+          const isSelected = selectedItem && (bar.id === selectedItem);
+          return (
+            <Bar
+              key={bar.id}
+              isSelected={isSelected}
+              onSelect={onSelect}
+              selectedItem={selectedItem}
+              {...bar} />
+          );
+        }),
+        <PaginationList length={paginationLength} city="" />
+      ]
     }
-  </div>
-  :
-  <div className="ui error message"><h1 className="header">{ error.status ? error.message : `${items.total} bars matched your location` }</h1></div>;
+
+    return ;
+  }
 
   return (
     <div className="ui container">
       <h1 className="ui header">
         { error.status ? error.status.message : ''}
       </h1>
-      { list }
+      { list() }
     </div>);
 };
 
 const mapStateToProps = ({ bars }) => ({
-  items: bars.items,
-  selectedItem: bars.selectedItem,
+  items: bars.items && bars.items.businesses,
+  total: bars.items && bars.items.total,
+  selectedItem: bars.selectedBar,
   error: bars.error,
   isFetching: bars.isFetching
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelect: (e, id) => {
-    dispatch(selectBar(id));
+  onSelect: (bar, e) => {
+    dispatch(setSelectedBar(bar));
   }
 });
 

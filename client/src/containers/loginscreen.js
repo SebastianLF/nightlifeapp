@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { reset } from 'redux-form';
 import { closeLoginscreen } from '../actions';
 import SignIn from '../components/auth/signin';
 
@@ -44,9 +45,11 @@ const mapStateToProps = ({ loginscreen }) => ({ loginscreen });
 const mapDispatchToProps = (dispatch) => ({
   onSocialClick: (e, social) => {
     e.preventDefault();
-    console.log(social);
   },
-  onClose: () => dispatch(closeLoginscreen())
+  onClose: () => {
+    dispatch(reset('signin'))
+    dispatch(closeLoginscreen())
+  }
 });
 
 export default connect(

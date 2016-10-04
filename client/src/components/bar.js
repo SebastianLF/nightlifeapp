@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import debounce from 'lodash/function/debounce';
+
 
 class Bar extends Component {
 
@@ -27,19 +29,19 @@ class Bar extends Component {
 
   render() {
     // from yelp api.
-    const { rating_img_url_large, location, display_phone,
+    const { id, rating_img_url_large, location, display_phone,
       image_url, name, snippet_text, categories } = this.props;
 
-    // from redux state.
-    const { onSelect, isSelected } = this.props;
+    const { onSelect, isSelected, selectedItem, ...rest } = this.props;
 
-    const selectButtonLabel = isSelected ? "I'M ALREADY HERE !" : 'GO HERE NOW!';
-
+    const selectButtonLabel = isSelected ? "QUIT THIS PLACE !" : 'GO HERE NOW!';
     const goingButtonClass = classNames(
       'ui', 'toggle', 'button',
       { 'basic': !isSelected },
       { 'active': isSelected }
     );
+
+    const onDeselect = isSelected ? undefined : rest;
 
     return (
       <div className="ui segment">
@@ -48,7 +50,7 @@ class Bar extends Component {
             <div className="image">
               <img src={image_url ?
                   (image_url.replace(/ms.jpg/i, '348s.jpg')) :
-                  ('public/img/no_image_available.svg')}
+                  ('img/no_image_available.svg')}
               />
             </div>
             <div className="middle aligned content">
@@ -77,7 +79,7 @@ class Bar extends Component {
                 <img src={ rating_img_url_large } />
               </div>
               <div className="actions">
-                <div onClick={ onSelect } className={ goingButtonClass }>
+                <div onClick={ debounce(onSelect.bind(undefined, onDeselect), 300) } className={ goingButtonClass }>
                   { selectButtonLabel }
                 </div>
               </div>

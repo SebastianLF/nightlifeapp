@@ -28,19 +28,16 @@ class Search extends React.Component {
       'ui', 'big', 'fluid', 'icon', 'input', { loading: this.props.bars.isFetching }
     );
 
-    const location = {
-      pathname: this.context.location.pathname
-    };
-
     return (
     <div className="masthead">
       <div className="pusher">
         <div className="ui inverted vertical masthead center aligned segment">
-          <Menu location={location} />
+          <Menu location={this.props.location} />
           <div className="ui text container">
             <h1 className="ui inverted header">
               What s up tonight ?
             </h1>
+            <h2>Coordinates your bars outing with your friends</h2>
             <form onSubmit={this.getBarsFromLocation.bind(this)}>
               <div className={isFetching}>
                 <input style={{ padding: '20px 20px 20px 40px !important' }}
