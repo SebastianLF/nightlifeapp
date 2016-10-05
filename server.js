@@ -54,7 +54,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-const server = app.listen(process.env.PORT, 'localhost', function () {
+const server = app.listen(process.env.PORT, function () {
   console.log('App listening at http://%s:%s',
     server.address().address, server.address().port);
 });
