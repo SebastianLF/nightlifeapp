@@ -7,11 +7,20 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./router');
 
+console.log(process.env.NODE_ENV);
 require('dotenv').config();
 
 // DB Setup
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGOLAB_URI);
+const mongo_url = process.env.MONGOLAB_URI;
+
+mongoose.connect(mongo_url, function(err, db){
+  if (err) {
+    console.log('Unable to connect to the mongodb server. Error', err);
+  } else {
+    console.log('Connection established to', mongo_url);
+  }
+});
 
 const app = express();
 
