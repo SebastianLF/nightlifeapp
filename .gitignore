@@ -1,6 +1,6 @@
-/node_modules
+node_modules/*
 bundle.js
 npm-debug.log
 .env
-/server
-/client
+server
+client/*
