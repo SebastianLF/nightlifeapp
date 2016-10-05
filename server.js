@@ -7,8 +7,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./router');
 
-console.log(process.env.NODE_ENV);
-require('dotenv').config();
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config();
+}
 
 // DB Setup
 mongoose.Promise = global.Promise;
