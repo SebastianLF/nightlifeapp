@@ -7,11 +7,21 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./router');
 
-require('dotenv').config();
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config();
+}
 
 // DB Setup
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
+const mongo_url = process.env.MONGOLAB_URI;
+
+mongoose.connect(mongo_url, function(err, db){
+  if (err) {
+    console.log('Error connecting to');
+  } else {
+    console.log('Connected to ', mongo_url);
+  }
+});
 
 const app = express();
 
@@ -44,7 +54,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-const server = app.listen(process.env.PORT || 3001, 'localhost', function () {
+const server = app.listen(process.env.PORT || 3001, function () {
   console.log('App listening at http://%s:%s',
     server.address().address, server.address().port);
 });
