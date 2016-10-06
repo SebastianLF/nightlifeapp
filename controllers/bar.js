@@ -1,4 +1,4 @@
-const yelp = require('../api-yelp');
+const yelp = require('../services/api-yelp');
 
 exports.search = function(req, res, next) {
   const offset = req.query.offset || 0;
