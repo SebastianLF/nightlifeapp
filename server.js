@@ -7,10 +7,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./router');
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({silent: true});
 }
-console.log(process.env.NODE_ENV);
+console.log('Environment: ' + process.env.NODE_ENV);
 
 // DB Setup
 mongoose.Promise = global.Promise;
