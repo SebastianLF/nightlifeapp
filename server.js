@@ -8,7 +8,7 @@ const cors = require('cors');
 const router = require('./router');
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({silent: true});
+  require('dotenv').config({ silent: process.env.NODE_ENV === 'production' });
 }
 console.log('Environment: ' + process.env.NODE_ENV);
 
