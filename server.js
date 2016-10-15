@@ -8,7 +8,7 @@ const cors = require('cors');
 const router = require('./router');
 
 if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config();
+  require('dotenv').config({silent: true});
 }
 
 // DB Setup
