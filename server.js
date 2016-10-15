@@ -10,6 +10,7 @@ const router = require('./router');
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({silent: true});
 }
+console.log(process.env.NODE_ENV);
 
 // DB Setup
 mongoose.Promise = global.Promise;
